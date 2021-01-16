@@ -19,15 +19,37 @@ struct Rectangle {
   height: u32,
 }
 
+impl Rectangle {
+  fn area(&self) -> u32 {
+    self.width * self.height
+  }
+
+  fn can_hold(&self, other: &Rectangle) -> bool {
+    self.width > other.width && self.height > other.height
+  }
+
+  fn square(size: u32) -> Rectangle {
+    Rectangle {
+      width: size,
+      height: size
+    }
+  }
+}
+
 fn demo_rectangle_struct() {
   let rect = Rectangle{
     width: 30,
     height: 50,
   };
 
-  println!("Area of {:#?} is: {}", rect, area2(&rect));
-}
+  println!("Area of {:#?} is: {}", rect, rect.area());
 
-fn area2(rectangle: &Rectangle) -> u32 {
-  rectangle.width * rectangle.height
+  let rect2 = Rectangle{
+    width: 20,
+    height: 40,
+  };
+  println!("Can hold: {}", rect.can_hold(&rect2));
+
+  let square = Rectangle::square(20);
+  println!("square: {:?}", square);
 }
